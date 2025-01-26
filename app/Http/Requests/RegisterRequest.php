@@ -31,15 +31,12 @@ class RegisterRequest extends FormRequest
     }
 
     public function tryToRegister(){
-        $name = $this->input('name');
-        $email = $this->input('email');
-        $password = $this->input('password');
-
-        $user = new User;
-        $user->name = $name;
-        $user->password = bcrypt($password);
-        $user->email = $email;
-        $user->save();
+        
+        $user = User::query()->create([
+            'name' => $this->input('name'),
+            'email' => $this->input('email'),
+            'password' => $this->input('password'),
+        ]);
 
         auth()->login($user);
 

@@ -14,6 +14,7 @@
                 <span>{{ $message }}</span>
             @enderror
         </div>
+
     <br>
 
         <div>
