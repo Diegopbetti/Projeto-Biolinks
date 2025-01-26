@@ -1,4 +1,5 @@
 <div>
+    
     <h1>Register</h1>
 
     @if ($message = session()->get('message'))
