@@ -8,10 +8,10 @@ use App\Http\Requests\MakeLoginRequest;
 class LoginController extends Controller
 {
     public function index(){
-        return view('login');
+        return view('login2');
     }
 
-    public function login(MakeLoginRequest $request){
+    public function login2(MakeLoginRequest $request){
 
         if($request->tryToLogin()){
             return to_route('dashboard');
