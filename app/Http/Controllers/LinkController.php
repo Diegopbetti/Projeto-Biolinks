@@ -20,7 +20,7 @@ class LinkController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('links.create');
     }
@@ -30,10 +30,13 @@ class LinkController extends Controller
      */
     public function store(StoreLinkRequest $request)
     {
-        Link::query()->create(
-            $request->validated()
-        );
-        return to_route('dashboard');
+        /** @var User @user */
+
+        $user = auth()->user();
+
+        $user->links()->create($request->validated());
+
+        return to_route('dashboard2');
     }
 
     /**
