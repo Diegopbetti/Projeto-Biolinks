@@ -54,9 +54,8 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Link $link): View
-    {
-        return view('links.edit', ['link' => $link]);
+    public function edit(Link $link)   {
+        return view('links.edit', compact('link'));
     }
 
     /**
@@ -64,14 +63,14 @@ class LinkController extends Controller
      */
     public function update(UpdateLinkRequest $request, Link $link)
     {
-        // Verifica se o link pertence ao usuário autenticado
-        if ($link->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
+        // $link->link = $request->link;
+        // $link->name = $request->name;
+        // $link->save();
 
-        $link->update($request->validated());
+        $link->fill($request->validated())->save();
 
-        return redirect()->route('dashboard2');
+        return to_route('dashboard2')
+            ->with('message', 'Alterado com sucesso');
     }
 
     /**

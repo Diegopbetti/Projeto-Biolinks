@@ -14,7 +14,7 @@ class RegisterController extends Controller
 
     public function register2(RegisterRequest $request){
         if($request->tryToRegister()){
-            return to_route('dashboard');
+            return to_route('dashboard2');
         }
         return back()->with(['message' => 'Deu ruim']);
     }
