@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
@@ -9,13 +10,8 @@ class DashboardController extends Controller {
         /** @var User $user */
         $user = auth()->user(); 
 
-        dd(
-            $user->links(),
-            $user->links()
-                ->where('name', '=', 'titulo')
-                ->get()
-        );
-
-        return view('dashboard2');
+        return view('dashboard2', [
+            'links' => $user->links,
+        ]);
     }
 }

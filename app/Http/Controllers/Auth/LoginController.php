@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login2(MakeLoginRequest $request){
 
         if($request->tryToLogin()){
-            return to_route('dashboard');
+            return to_route('dashboard2');
         }
 
         return back()->with(['message' => 'not found']);
