@@ -76,15 +76,11 @@ class LinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Link $link)
-    {
-        // Verifica se o link pertence ao usuário autenticado
-        if ($link->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
+    public function destroy(Link $link){
 
         $link->delete();
 
-        return redirect()->route('dashboard2');
+        return to_route('dashboard2')
+            ->with('message', 'Deletado');
     }
 }
