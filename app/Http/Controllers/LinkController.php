@@ -83,4 +83,33 @@ class LinkController extends Controller
         return to_route('dashboard2')
             ->with('message', 'Deletado');
     }
+
+    public function up(Link $link){
+        $order = $link->sort;
+        $newOrder = $order - 1;
+
+        /** @var User $user */
+        $user = auth()->user();
+
+        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
+        $link->fill(['sort' => $newOrder])->save();
+        $swapWith->fill(['sort' => $order ])->save();
+
+        return back();
+    }
+
+    public function down(Link $link){
+        $order = $link->sort;
+        $newOrder = $order + 1;
+
+        /** @var User $user */
+        $user = auth()->user();
+
+        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
+
+        $link->fill(['sort' => $newOrder])->save();
+        $swapWith->fill(['sort' => $order ])->save();
+
+        return back();
+    }
 }
