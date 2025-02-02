@@ -34,6 +34,7 @@
                 <a href="{{ route('links.edit', $link) }}">
                     {{ $link->id }}.{{ $link->name }}
                 </a>
+
                 <form action="{{ route('links.destroy', $link) }}" method="post" onsubmit="return confirm('Tem certeza?')">
                     @csrf
                     @method('DELETE')
