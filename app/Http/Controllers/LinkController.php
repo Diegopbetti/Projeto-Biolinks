@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
-use App\Models\User; // Adicionado
+use App\Models\User; 
 use Illuminate\Http\Request;
-use Illuminate\View\View; // Adicionado
+use Illuminate\View\View; 
 use App\Http\Requests\StoreLinkRequest;
 use App\Http\Requests\UpdateLinkRequest;
 
