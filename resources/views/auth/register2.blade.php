@@ -1,4 +1,5 @@
-<div>
+<x-layout.app>
+    <div>
     {{ auth()->id() }}
     <h1>Register</h1>
 
@@ -43,4 +44,5 @@
         <br>
         <button>Registrar</button>
     </form>
-</div>
+    </div>
+</x-layout.app>
