@@ -1,50 +1,23 @@
 <x-layout.app>
-    <div>
-        <h1>Profile</h1>    
-
-        @if ($message = session('message'))
-            <div>{{ $message }}</div>
-        @endif
-
-        <form action="{{ route('profile') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-
-            <div>
-                <img src="/storage/{{ $user->photo }}" alt="Profile picture">
-                <input type="file" name="photo">
-            </div>
-            <div>
-                <input name="name" placeholder="Name" value="{{ old('email') }}">
-                @error('name')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-
-            <div>
-                <textarea name="description" placeholder="Breve Resumo" value="{{ old('description', $user->description) }}"></textarea>
-                @error('description')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-
-            <div>
-                <span>biolinks.com.br/</span>
-                <input name="handler" placeholder="@seulink" value="{{ old('handler', $user->handler) }}">
-                @error('handler')
-                    <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br>
-
-            <a href="{{ route("dashboard2") }}">Cancelar</a>
-
-            <button>Update</button>
-        </form>
-    </div>
+    <x-container>
+        <x-card title="Profile">
+            <x-form :route="route('profile')" post id="form" enctype="multipart/form-data">
+                <div>
+                    <div class="avatar">
+                        <div class="w-24 rounded-xl">
+                            <img src="/storage/{{ $user->photo }}" alt="Profile Picture">
+                        </div>
+                    </div>
+                    <input type="file" name="photo">
+                </div>
+                <x-input name="name" placeholder="Name" value="{{ old('name', $user->name) }}" />
+                <x-textarea name="description" value="{{ old('description', $user->description) }}" />
+                <x-input name="handler" placeholder="Handler" value="{{ old('handler', $user->handler) }}" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('dashboard2')">Cancel</x-a>
+                <x-button type="submit" form="form">Update link</x-button>    
+            </x-slot:actions>
+        </x-card>
+    </x-container>
 </x-layout.app>

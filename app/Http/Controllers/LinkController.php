@@ -55,8 +55,6 @@ class LinkController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Link $link)   {
-        //$this->authorize('autalizar', $link);   
-
         return view('links.edit', compact('link'));
     }
 
