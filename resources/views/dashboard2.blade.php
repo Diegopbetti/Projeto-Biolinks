@@ -1,51 +1,37 @@
 <x-layout.app>
-    <div>
-        <h1>Dashboard</h1>
-        <h2>User {{ auth()->user()->name }}:: {{ auth()->id() }}</h2>
-        <a href="{{ route('profile') }}">Atualizar profile</a>
+    <x-container>
+        <x-card>
+            <div class="text-center space-y-2">
+                <x-img src="/storage/{{ $user->photo }}" alt="Photo profile" />
+                <div class="font-bold text-2xl tracking-wider">{{ $user->name }}</div>
+                <div class="text-sm opacity-80">{{ $user->description }}</div>
+                <ul class="space-y-2">
+                    @foreach ($links as $link)
+                        <li class="flex items-center gap-2">
+                            @unless ($loop->last)
+                            
+                            <form :route="{{ route('links.down', $link) }}" patch>     
+                                <x-button>⬇️</x-button>
+                            </form>
+                            @endunless
 
+                            @unless ($loop->first)
 
-        @if ($message = session()->get('message'))
-            <div>{{ $message }}</div>
-        @endif
+                            <form :route="{{ route('links.up', $link) }}" patch>
+                                <x-button>⬆️</x-button>
+                            </form>
+                            @endunless
 
-        <a href="{{ route('links.create') }}">Criar</a>
-        <ul>
-            @foreach ($links as $link )
-                <li style="display: flex;">
-
-                    @unless ($loop->last)
-                        
-                    <form action="{{ route('links.down', $link) }}" method="post">
-                        @csrf
-                        @method('PATCH')
-
-                        <button>⬇️</button>
-                    </form>
-                    @endunless
-
-                    @unless ($loop->first)
-
-                    <form action="{{ route('links.up', $link) }}" method="post">
-                        @csrf
-                        @method('PATCH')
-
-                        <button>⬆️</button>
-                    </form>
-                    @endunless
-
-                    <a href="{{ route('links.edit', $link) }}">
-                        {{ $link->id }}.{{ $link->name }}
-                    </a>
-
-                    <form action="{{ route('links.destroy', $link) }}" method="post" onsubmit="return confirm('Tem certeza?')">
-                        @csrf
-                        @method('DELETE')
-
-                        <button>Deletar</button>
-                    </form>
-                </li>
-            @endforeach
-        </ul>
-    </div>
+                            <x-button href="{{ route('links.edit', $link) }}" block outline info>
+                                {{ $link->name }}
+                            </x-button>
+                            <form :route="route('links.destroy', $link)" delete onsubmit="return confirm('Tem certeza?')">
+                                <x-button ghost><x-icons.trash class="w-6 h-6"/></x-button>
+                            </form> 
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </x-card>
+    </x-container>
 </x-layout.app>
